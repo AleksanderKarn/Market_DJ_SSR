@@ -1,0 +1,15 @@
+{% include "products/home_page.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for item in query_result %}
+    {% if item.status_version == True %}
+        {{ item.name }} {{ item.number_version }}
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>

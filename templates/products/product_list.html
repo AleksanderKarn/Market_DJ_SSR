@@ -1,0 +1,44 @@
+{% include "products/home_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover align-middle">
+
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th width="420px">Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for product in product_list %}
+                    <td>{{ product.name_product }}</td>
+                    <td>{{ product.version }}</td>
+
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'products:update_with_version' product.pk %}" class="btn btn-success">
+                                Редактировать
+                            </a>
+                            <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-danger">
+                                Удалить
+                            </a>
+                        </div>
+                    </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% for version in product.version_set.all %}
+        {{ version }}
+    {% endfor %}
+    <hr class="mt-0 mb-4">
+    <a href="{% url 'products:product_create' %}" class="btn btn-success">Добавить продукт</a>
+{% endblock %}

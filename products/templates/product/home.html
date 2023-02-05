@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for product in product_list.products.all %}
+    {{ product }}
+{% endfor %}
+
+{% endblock %}
