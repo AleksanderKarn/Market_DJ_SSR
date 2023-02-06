@@ -11,5 +11,5 @@ class SigninForm(StyleFormMixin, AuthenticationForm):
 class SignupForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User
-        fields = ("email",)
+        fields = ('email',)
         field_classes = {'username': UsernameField}

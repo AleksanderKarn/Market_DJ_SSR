@@ -3,13 +3,24 @@ from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=50, verbose_name='название категории')
+    description = models.TextField("Описание категории")
+
+    def __str__(self):
+        return f'{self.category_name}'
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
 
 class Product(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Продавец')
     name_product = models.CharField("Название продукта", max_length=250)
     description = models.TextField("Описание продукта")
     image = models.ImageField("Изображение", upload_to='products/', **NULLABLE)
-    category_name = models.CharField("Название категории", max_length=50)
+    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
     unit_price = models.DecimalField(max_digits=15, decimal_places=2, default=0, verbose_name='цена в рублях')
 
     is_active = models.BooleanField(default=True)
@@ -51,3 +62,5 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'версия'
         verbose_name_plural = 'версии'
+
+

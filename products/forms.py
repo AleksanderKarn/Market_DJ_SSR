@@ -1,6 +1,6 @@
 from django import forms
 
-from products.models import Product, Version
+from products.models import Product, Version, Category
 
 
 class ProductForm(forms.ModelForm):
@@ -27,28 +27,16 @@ class ProductForm(forms.ModelForm):
         return description
 
 
-#def _chek(product_id):
-#    a = Version.objects.get(product_id=product_id).filter(status_version=True)
-#    return len(a)
 
 class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
 
-   # def clean_product_id(self):
-   #     product_id = self.cleaned_data['product_id']
-   #     return product_id
-#
-   # def clean_status_version(self):
-   #     status_version = self.cleaned_data['status_version']
-#
-   #     if status_version is True:
-   #         res = self.clean_product_id()
-   #         if _chek(res) > 0:
-   #             raise forms.ValidationError('Ошибка')
-#
-   #     return status_version
-#
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 

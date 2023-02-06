@@ -13,7 +13,7 @@ def set_verify_token_and_send_mail(new_user):
         """
     now = datetime.now(pytz.timezone(settings.TIME_ZONE))
 
-    new_user.object.is_active = False
-    new_user.object.verify_token = User.objects.make_random_password(length=20)
-    new_user.object.verify_token_expired = now
-    new_user.object.save()
+    new_user.is_active = False
+    new_user.verify_token = User.objects.make_random_password(length=20)
+    new_user.verify_token_expired = now
+    new_user.save()

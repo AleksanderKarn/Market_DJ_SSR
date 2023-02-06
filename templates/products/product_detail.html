@@ -3,14 +3,25 @@
 <div class="container text-center">
     <div class="card w-50">
         <div class="card-body">
-            <h3 class="card-title">Название продукта: {{ product.name_product }}</h3>
-            <h3 class="card-title">{{ product.image }}</h3>
-            <h4 class="card-text">Цена продукта: {{ product.unit_price }}</h4>
-            <h5 class="card-title">Категория продукта: {{ product.category_name }}</h5>
-            <h4 class="card-text">Описание продукта: {{ product.description }}</h4>
-            <a href="#" class="btn btn-primary">Изменить</a>
-            <a href="#" class="btn btn-primary">Удалить</a>
-            <a href="#" class="btn btn-primary">Назад</a>
+            <div class="card" style="width: 18rem;">
+                <img src="{{ product.image }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name_product }}</h5>
+                    <p class="card-text">{{ product.description }}
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ product.version }}</li>
+                    <li class="list-group-item">{{ product.category_name }}</li>
+                    <li class="list-group-item">{{ product.unit_price }}</li>
+                </ul>
+                <div class="card-body">
+                    <a href="{% url 'products:product_update' product.pk %}" class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-primary">Удалить</a>
+                    <p></p>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-primary">Назад</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,34 +1,18 @@
+from django.conf import settings
+from django.core.cache import cache
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-
-from products.forms import ProductForm
-from products.models import Product, Version
+from products.services import _cache_categories
+from products.forms import ProductForm, CategoryForm
+from products.models import Product, Version, Category
 
 from django.views.generic import TemplateView
 
 
-#def home_page(request):
-#    return render(request, 'products/home_page.html')
-
-
-
-                                   #### CRUD для Product
-class VersionListView(ListView):
-    model = Version
-
-
+#### CRUD для Product
 class ProductListView(ListView):
     model = Product
-
-    #def get_queryset(self):
-#
-    #    products = Product.objects.filter(products__status_version=True)
-    #    for product in products:
-    #        print(product.products)
-    #    return products
-
-
 
 
 class ProductDetailView(DetailView):
@@ -51,6 +35,7 @@ class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('products:product_list')
 
+    ###########################################################################
 
 
 def version_for_product(request):
@@ -66,3 +51,29 @@ def version_for_product(request):
 
 class HomePageView(TemplateView):
     template_name = 'product/home.html'
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('products:category_list')
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['categories'] = _cache_categories(self.object_list)
+        return context_data
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('products:category_list')
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    success_url = reverse_lazy('products:category_list')

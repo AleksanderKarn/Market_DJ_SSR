@@ -17,8 +17,6 @@ class SigninView(LoginView):
     form_class = SigninForm
 
 
-
-
 class SignupView(CreateView):
     template_name = 'users/register.html'
     model = User
@@ -27,7 +25,6 @@ class SignupView(CreateView):
 
     def form_valid(self, form):
         if form.is_valid():
-
             self.object = form.save()
             set_verify_token_and_send_mail(self.object)
         return super().form_valid(form)
@@ -35,4 +32,3 @@ class SignupView(CreateView):
 
 class SignupSuccessView(TemplateView):
     template_name = 'users/signup_success.html'
-
