@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('product_list/', ProductListView.as_view(), name='product_list'),
     path('product_detail/<int:pk>/', cache_page(300)(ProductDetailView.as_view()), name='product_detail'),
+    path('product_detail/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
 
     path('product_update/<int:pk>', ProductUpdateView.as_view(), name='product_update'),
     path('product_delete/<int:pk>', ProductDeleteView.as_view(), name='product_delete'),

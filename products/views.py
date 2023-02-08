@@ -1,5 +1,4 @@
-from django.conf import settings
-from django.core.cache import cache
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -23,6 +22,12 @@ class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products:product_list')
+
+    def form_valid(self, form):
+        product = form.save(commit=False)
+        product.owner_id = self.request.user.id
+        product.save()
+        return super(ProductCreateView, self).form_valid(form)
 
 
 class ProductUpdateView(UpdateView):

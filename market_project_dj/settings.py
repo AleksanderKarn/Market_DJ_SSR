@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BASE_URL = os.getenv('BASE_URL')
 
 # Application definition
 
@@ -139,7 +140,7 @@ AUTH_USER_MODEL = 'clients.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_URL = 'clients/'
+LOGIN_URL = '/clients/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -152,3 +153,11 @@ if CACHE_ENABLED:
             'LOCATION': 'redis://127.0.0.1:6379'
         }
     }
+
+
+
+EMAIL_HOST  = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True

@@ -105,9 +105,9 @@
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
                        href="{% url 'products:category_list' %}">Категории</a>
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
-                       href="{% url 'users:login' %}">Профиль</a>
+                       href="{% url 'users:update_profile' %}">Профиль</a>
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-warning"
-                       href="{% url 'users:logout' %}">Выход</a>
+                       href="{% url 'users:logout' %}">{{ user.first_name }}_{{ user.last_name }} | Выход</a>
                 {% else %}
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
                        href="{% url 'users:login' %}">Вход</a>

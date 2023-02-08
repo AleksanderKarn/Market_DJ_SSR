@@ -30,6 +30,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link active" href="/admin">Админ панель</a>
                 </li>
+                <a class="me-3 py-2 text-white text-decoration-none btn btn-outline-warning"
+                       href="{% url 'users:logout' %}">{{ user.first_name }}_{{ user.last_name }} | Выход</a>
             </ul>
         </div>
     </div>

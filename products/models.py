@@ -16,11 +16,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Продавец')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Продавец', **NULLABLE)
     name_product = models.CharField("Название продукта", max_length=250)
     description = models.TextField("Описание продукта")
     image = models.ImageField("Изображение", upload_to='products/', **NULLABLE)
-    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
+    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories', verbose_name='Категория')
     unit_price = models.DecimalField(max_digits=15, decimal_places=2, default=0, verbose_name='цена в рублях')
 
     is_active = models.BooleanField(default=True)

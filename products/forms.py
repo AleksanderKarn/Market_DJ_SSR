@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from products.models import Product, Version, Category
 
@@ -6,7 +7,7 @@ from products.models import Product, Version, Category
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('name_product', 'description', 'image', 'unit_price', 'category_name')
 
     cannot_words = ['Казино', 'Криптовалюта', 'Крипта', 'Биржа', 'Дешево', 'Бесплатно', 'Обман', 'Полиция', 'Радар']
 
@@ -25,6 +26,7 @@ class ProductForm(forms.ModelForm):
             if word in description:
                 raise forms.ValidationError(f'{word} - запрещенное слово')
         return description
+
 
 
 
