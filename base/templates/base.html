@@ -102,8 +102,10 @@
                        href="/admin">Админ панель</a>
                      <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
                        href="{% url 'products:product_list' %}">Каталог</a>
+                    {% if perms.products.view_category %}
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
                        href="{% url 'products:category_list' %}">Категории</a>
+                        {% endif %}
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-primary"
                        href="{% url 'users:update_profile' %}">Профиль</a>
                     <a class="me-3 py-2 text-dark text-decoration-none btn btn-outline-warning"

@@ -9,6 +9,8 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ('name_product', 'description', 'image', 'unit_price', 'category_name')
 
+
+
     cannot_words = ['Казино', 'Криптовалюта', 'Крипта', 'Биржа', 'Дешево', 'Бесплатно', 'Обман', 'Полиция', 'Радар']
 
     def clean_name_product(self):

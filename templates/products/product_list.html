@@ -11,8 +11,8 @@
                 <tr>
                     <th>Название продукта</th>
                     <th>Версия</th>
-                    <th>Категория </th>
-                    <th>Действия </th>
+                    <th>Категория</th>
+                    <th>Действия</th>
                     <th width="420px"></th>
                 </tr>
                 </thead>
@@ -24,12 +24,30 @@
 
                     <td>
                         <div class="btn-group">
-                            <a href="{% url 'products:update_with_version' product.pk %}" class="btn btn-success">
-                                Редактировать
-                            </a>
-                            <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-danger">
-                                Удалить
-                            </a>
+                            {% if user.id == product.owner_id or perms.products.change_product %}
+                                <a href="{% url 'products:update_with_version' product.pk %}"
+                                   class="btn btn-success">
+                                    Редактировать
+                                </a>
+                            {% endif %}
+                            {% if user.id == product.owner_id or perms.is_superuser %}
+                                <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-danger">
+                                    Удалить
+                                </a>
+                            {% endif %}
+                            {% if perms.products.change_product %}
+                                {% if product.is_active != 1 %}
+                                    <a href="{% url "products:status" product.pk %}"
+                                       class="btn btn-outline-success" aria-current="true">
+                                        Опубликовать
+                                    </a>
+                                {% else %}
+                                    <a href="{% url "products:status" product.pk %}"
+                                       class="btn btn-outline-warning" aria-current="true">
+                                        Убрать из публикации
+                                    </a>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </td>
                     </tr>

@@ -23,7 +23,7 @@ class Product(models.Model):
     category_name = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories', verbose_name='Категория')
     unit_price = models.DecimalField(max_digits=15, decimal_places=2, default=0, verbose_name='цена в рублях')
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)  # Заполняется когда пользователь создает экземпляр товара
     updated_at = models.DateTimeField(auto_now=True)  #заполняется когда пользователь сам чтото меняет
 
@@ -33,6 +33,11 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+        permissions = [
+            ("set_published_status",
+                "Castom_change_status")
+        ]
+
 
     def version(self):
         return self.products.get(status_version=True)

@@ -26,6 +26,7 @@
             color: gray;
         }
     </style>
+
     <form method="post">
         <div class="row">
             <div class="col-4">
@@ -37,36 +38,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="formset">
+            {% if user.id == product.owner_id %}
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="formset">
 
-                            {{ formset.management_form }}
-                            {% for form in formset.forms %}
-                                <div class="formset_row">
-                                    {% for field in form.visible_fields %}
-                                        <div class="formset-col">
-                                            {% if forloop.first %}
-                                                {% for hidden in form.hidden_fields %}
-                                                    {{ hidden }}
-                                                {% endfor %}
-                                            {% endif %}
-                                            {{ field.errors.as_ul }}
-                                            {% if not forloop.last %}
-                                                {{ field.label }}
-                                            {% endif %}
-                                            {{ field }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
+                                {{ formset.management_form }}
+                                {% for form in formset.forms %}
+                                    <div class="formset_row">
+                                        {% for field in form.visible_fields %}
+                                            <div class="formset-col">
+                                                {% if forloop.first %}
+                                                    {% for hidden in form.hidden_fields %}
+                                                        {{ hidden }}
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {{ field.errors.as_ul }}
+                                                {% if not forloop.last %}
+                                                    {{ field.label }}
+                                                {% endif %}
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </form>
+                </div>
+                </form>
+            {% endif %}
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"

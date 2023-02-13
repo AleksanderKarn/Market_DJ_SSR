@@ -16,8 +16,12 @@
                     <li class="list-group-item">{{ product.unit_price }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="{% url 'products:product_update' product.pk %}" class="btn btn-primary">Изменить</a>
-                    <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-primary">Удалить</a>
+                    {% if user.id == product.owner_id or perms.products.change_product %}
+                        <a href="{% url 'products:product_update' product.pk %}" class="btn btn-primary">Изменить</a>
+                    {% endif %}
+                    {% if user.id == product.owner_id %}
+                        <a href="{% url 'products:product_delete' product.pk %}" class="btn btn-primary">Удалить</a>
+                    {% endif %}
                     <p></p>
                     <a href="{% url 'products:product_list' %}" class="btn btn-primary">Назад</a>
                 </div>

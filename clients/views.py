@@ -3,6 +3,7 @@ from datetime import datetime
 import pytz
 from django.conf import settings
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, \
     PasswordResetDoneView
 from django.shortcuts import render, redirect
@@ -35,7 +36,8 @@ class SignupView(CreateView):
 class SignupSuccessView(TemplateView):
     template_name = 'users/signup_success.html'
 
-class UserEditProfileView(UpdateView):
+
+class UserEditProfileView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'users/update_users.html'
     form_class = CustomEditUserForm
@@ -70,6 +72,7 @@ class CustomPasswordResetView(PasswordResetView):
     success_url = reverse_lazy('users:password_reset_done')
     email_template_name = 'users/email_reset.html'
     from_email = settings.EMAIL_HOST_USER
+
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'users/reset_confirm.html'
